@@ -16,9 +16,15 @@
       --chip:rgba(232,238,247,.08);
       --chip2:rgba(232,238,247,.14);
       --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --shadow2: 0 14px 40px rgba(0,0,0,.42);
       --radius: 18px;
+
+      --ease: cubic-bezier(.2,.8,.2,1);
+      --dur: 520ms;
     }
+
     *{box-sizing:border-box}
+
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
@@ -27,12 +33,15 @@
                   var(--bg);
       color:var(--text);
       line-height:1.55;
+      overflow-x:hidden;
     }
+
     .wrap{
       max-width: 980px;
       padding: 28px 18px 60px;
       margin: 0 auto;
     }
+
     header{
       display:flex;
       align-items:flex-start;
@@ -41,22 +50,27 @@
       margin-top: 10px;
       margin-bottom: 22px;
     }
+
     .brand{
       display:flex;
       flex-direction:column;
       gap:6px;
+      min-width: 0;
     }
+
     .name{
       font-size: clamp(28px, 4vw, 42px);
       letter-spacing: .2px;
-      font-weight: 750;
+      font-weight: 780;
       margin:0;
     }
+
     .role{
       margin:0;
       color:var(--muted);
       font-size: 15px;
     }
+
     .lang{
       display:flex;
       gap:8px;
@@ -67,7 +81,10 @@
       background: rgba(15,22,33,.55);
       backdrop-filter: blur(6px);
       box-shadow: var(--shadow);
+      transition: transform 220ms var(--ease), box-shadow 220ms var(--ease);
+      user-select:none;
     }
+
     .lang button{
       border: 0;
       cursor:pointer;
@@ -75,12 +92,21 @@
       border-radius: 999px;
       background: transparent;
       color: var(--muted);
-      font-weight: 650;
+      font-weight: 700;
       letter-spacing:.2px;
+      transition: transform 220ms var(--ease), background 220ms var(--ease), color 220ms var(--ease);
     }
+
     .lang button.active{
       background: var(--chip2);
       color: var(--text);
+    }
+
+    .lang button:active{ transform: scale(.98); }
+
+    .lang:focus-within{
+      box-shadow: 0 0 0 3px rgba(96,165,250,.22), var(--shadow);
+      transform: translateY(-1px);
     }
 
     .grid{
@@ -88,6 +114,7 @@
       grid-template-columns: 1.25fr .75fr;
       gap: 16px;
     }
+
     @media (max-width: 880px){
       .grid{grid-template-columns: 1fr;}
       header{align-items:flex-start}
@@ -100,15 +127,31 @@
       padding: 18px 18px 16px;
       box-shadow: var(--shadow);
       backdrop-filter: blur(8px);
+
+      transition: transform 260ms var(--ease), box-shadow 260ms var(--ease), border-color 260ms var(--ease);
+      will-change: transform;
     }
+
+    /* lift leggero solo su device con hover */
+    @media (hover:hover) and (pointer:fine){
+      .card:hover{
+        transform: translateY(-2px);
+        box-shadow: var(--shadow2);
+        border-color: rgba(232,238,247,.18);
+      }
+    }
+
     .card h2{
       margin: 0 0 10px;
       font-size: 16px;
       letter-spacing: .3px;
       color: var(--text);
     }
+
     .card p{margin: 0 0 10px; color: var(--muted);}
+
     .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+
     .chip{
       padding: 7px 10px;
       border-radius: 999px;
@@ -117,19 +160,34 @@
       color: var(--text);
       font-size: 13px;
       white-space: nowrap;
+
+      transition: transform 220ms var(--ease), background 220ms var(--ease), border-color 220ms var(--ease);
     }
+
+    @media (hover:hover) and (pointer:fine){
+      .chip:hover{
+        transform: translateY(-1px);
+        background: rgba(232,238,247,.12);
+        border-color: rgba(232,238,247,.20);
+      }
+    }
+
     .list{
       margin: 10px 0 0;
       padding-left: 18px;
       color: var(--muted);
     }
+
     .list li{margin: 6px 0}
+
     .cta{
       display:flex;
       flex-direction:column;
       gap: 10px;
     }
+
     .btnrow{display:flex; flex-wrap:wrap; gap:10px; margin-top: 6px;}
+
     a.btn{
       display:inline-flex;
       align-items:center;
@@ -140,19 +198,36 @@
       border: 1px solid var(--line);
       padding: 10px 12px;
       border-radius: 12px;
-      font-weight: 650;
+      font-weight: 700;
+
+      transition: transform 220ms var(--ease), background 220ms var(--ease), border-color 220ms var(--ease);
+      outline: none;
     }
+
     a.btn:hover{background: rgba(232,238,247,.14)}
+    a.btn:focus-visible{
+      box-shadow: 0 0 0 3px rgba(96,165,250,.22);
+    }
+
+    @media (hover:hover) and (pointer:fine){
+      a.btn:hover{ transform: translateY(-1px); border-color: rgba(232,238,247,.20); }
+      a.btn:active{ transform: translateY(0px) scale(.99); }
+    }
+
     .small{font-size: 12.5px; color: var(--muted); margin-top: 8px}
+
     footer{
       margin-top: 18px;
       color: rgba(167,179,199,.85);
       font-size: 12.5px;
       text-align:center;
     }
+
     .lang-pane{display:none}
     .lang-pane.active{display:block}
+
     .muted-note{font-size: 12.5px; color: rgba(167,179,199,.92)}
+
     code.k{
       background: rgba(232,238,247,.10);
       border: 1px solid var(--line);
@@ -162,12 +237,28 @@
       font-size: 12.5px;
       color: var(--text);
     }
+
+    /* --- Micro-animazioni on-scroll (motion-safe) --- */
+    .reveal{
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+    }
+    .reveal.in{
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Riduci movimento se l’utente lo chiede */
+    @media (prefers-reduced-motion: reduce){
+      .reveal{opacity:1; transform:none; transition:none;}
+      .card, .chip, .lang, a.btn{transition:none !important;}
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <header>
+    <header class="reveal">
       <div class="brand">
         <h1 class="name">Emiliano Grossi</h1>
         <p class="role">Infrastructure &amp; Network Engineering — IT/EN</p>
@@ -182,20 +273,21 @@
     <!-- IT -->
     <section id="pane-it" class="lang-pane active" lang="it">
       <div class="grid">
-        <div class="card">
+        <div class="card reveal">
           <h2>Profilo</h2>
           <p>
-            Tecnico con esperienza in contesti <strong>mission-critical</strong> e integrazione di sistemi su
-            infrastrutture in <strong>fibra ottica</strong>. Sto consolidando competenze di networking in ottica
-            enterprise, con percorso strutturato verso <strong>CCNA</strong>.
+            Tecnico con esperienza in contesti <strong>mission-critical</strong> e nell’integrazione di sistemi su
+            infrastrutture in <strong>fibra ottica</strong>. Porto un approccio ordinato e “security-first”:
+            segmentazione, isolamento dei domini e troubleshooting sotto pressione.
           </p>
           <p class="muted-note">
+            Sto consolidando competenze di networking in ottica enterprise con un percorso strutturato verso <strong>CCNA</strong>.
             Obiettivo: crescere come <strong>Network Engineer</strong> (switching/routing/segmentation/security) con metodo,
             rigore e visione architetturale.
           </p>
 
           <div class="chips" aria-label="Key topics">
-            <span class="chip">Networking enterprise</span>
+            <span class="chip">Enterprise networking</span>
             <span class="chip">Segmentation &amp; security mindset</span>
             <span class="chip">Fiber backbone</span>
             <span class="chip">Mission-critical operations</span>
@@ -203,40 +295,40 @@
 
           <h2 style="margin-top:16px;">Highlights</h2>
           <ul class="list">
-            <li>Esperienza in ambienti ad alta criticità e procedure operative stringenti.</li>
-            <li>Architetture su fibra con segmentazione/isolamento dei domini (approccio “security-first”).</li>
-            <li>Distribuzione AV su IP (contesti multi-sala) e troubleshooting in scenari live.</li>
+            <li>Operatività in ambienti ad alta criticità con procedure e responsabilità reali.</li>
+            <li>Reti su fibra con separazione/isolamento dei domini (approccio “security-first”).</li>
+            <li>Distribuzione AV su IP in contesti multi-sala e troubleshooting live.</li>
           </ul>
         </div>
 
-        <aside class="card cta">
+        <aside class="card cta reveal">
           <h2>Contatti</h2>
           <div class="btnrow">
-            <!-- Sostituisci l'email quando vuoi -->
             <a class="btn" href="mailto:info@egrossi.it" aria-label="Email">✉️ info@egrossi.it</a>
-            <!-- Metti qui il tuo LinkedIn quando vuoi -->
+
+            <!-- Sostituisci href con il tuo profilo LinkedIn -->
             <a class="btn" href="#" onclick="return false;" aria-label="LinkedIn (placeholder)">in LinkedIn</a>
           </div>
           <p class="small">
-            Questo sito è in costruzione: contenuti e progetti verranno aggiunti progressivamente.
+            Sito in costruzione: nei prossimi aggiornamenti aggiungerò progetti, lab e casi studio “presentabili”.
           </p>
 
           <hr style="border:0;border-top:1px solid var(--line);margin:10px 0 0;" />
 
           <p class="small">
-            Tech note: pagina statica (<code class="k">index.html</code>), ideale per hosting sicuro e minimale.
+            Tech note: pagina statica (<code class="k">index.html</code>) — minimale, veloce e facile da mantenere.
           </p>
         </aside>
       </div>
 
-      <div class="card" style="margin-top:16px;">
+      <div class="card reveal" style="margin-top:16px;">
         <h2>Percorso (in sintesi)</h2>
         <p>
-          Sto seguendo un percorso di studio costante (circa 1h/giorno) con esercizi e lab per consolidare:
+          Studio costante (circa 1h/giorno) con esercizi e lab per consolidare:
           switching, routing, subnetting, NAT, ACL, troubleshooting e best practice operative.
         </p>
         <p class="small">
-          Quando sarà il momento, qui compariranno mini-case study e lab “presentabili” (senza informazioni sensibili).
+          Pubblicherò solo materiale ripulito da dettagli sensibili (IP, nomi, topology reali).
         </p>
       </div>
     </section>
@@ -244,14 +336,15 @@
     <!-- EN -->
     <section id="pane-en" class="lang-pane" lang="en">
       <div class="grid">
-        <div class="card">
+        <div class="card reveal">
           <h2>Profile</h2>
           <p>
             Technician with hands-on experience in <strong>mission-critical</strong> environments and system integration on
-            <strong>fiber-optic</strong> infrastructures. I’m consolidating enterprise networking skills through a structured
-            <strong>CCNA</strong> path.
+            <strong>fiber-optic</strong> infrastructures. I take a structured “security-first” approach:
+            segmentation, domain isolation, and calm troubleshooting under pressure.
           </p>
           <p class="muted-note">
+            I’m consolidating enterprise networking skills through a structured <strong>CCNA</strong> path.
             Goal: grow as a <strong>Network Engineer</strong> (switching/routing/segmentation/security) with discipline,
             method and architectural thinking.
           </p>
@@ -265,43 +358,43 @@
 
           <h2 style="margin-top:16px;">Highlights</h2>
           <ul class="list">
-            <li>Experience in high-criticality environments with strict operational procedures.</li>
-            <li>Fiber architectures with domain isolation and “security-first” approach.</li>
+            <li>Work in high-criticality environments with strict operational procedures.</li>
+            <li>Fiber-based networks with domain isolation (“security-first” mindset).</li>
             <li>AV-over-IP in multi-room scenarios and live troubleshooting under pressure.</li>
           </ul>
         </div>
 
-        <aside class="card cta">
+        <aside class="card cta reveal">
           <h2>Contact</h2>
           <div class="btnrow">
             <a class="btn" href="mailto:info@egrossi.it" aria-label="Email">✉️ info@egrossi.it</a>
             <a class="btn" href="#" onclick="return false;" aria-label="LinkedIn (placeholder)">in LinkedIn</a>
           </div>
           <p class="small">
-            This website is a work in progress — content and projects will be added over time.
+            Work in progress — I’ll add projects, labs and “presentable” case studies over time.
           </p>
 
           <hr style="border:0;border-top:1px solid var(--line);margin:10px 0 0;" />
 
           <p class="small">
-            Tech note: static page (<code class="k">index.html</code>), minimal and secure hosting friendly.
+            Tech note: static page (<code class="k">index.html</code>) — minimal, fast, easy to maintain.
           </p>
         </aside>
       </div>
 
-      <div class="card" style="margin-top:16px;">
+      <div class="card reveal" style="margin-top:16px;">
         <h2>Journey (short)</h2>
         <p>
-          I follow a consistent study routine (about 1h/day) with exercises and labs to consolidate:
+          Consistent study routine (~1h/day) with exercises and labs to consolidate:
           switching, routing, subnetting, NAT, ACLs, troubleshooting and operational best practices.
         </p>
         <p class="small">
-          When ready, I’ll publish small case studies and presentable labs (with no sensitive details).
+          I’ll only publish sanitized content (no sensitive IPs, names or real topology details).
         </p>
       </div>
     </section>
 
-    <footer>
+    <footer class="reveal">
       © <span id="y"></span> Emiliano Grossi — egrossi.it
     </footer>
   </div>
@@ -325,6 +418,18 @@
 
       document.documentElement.lang = lang;
       localStorage.setItem('egrossi_lang', lang);
+
+      // re-trigger reveals when switching language (nice touch)
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.reveal').forEach(el => {
+          el.classList.remove('in');
+        });
+        setTimeout(() => {
+          document.querySelectorAll('.reveal').forEach(el => {
+            el.classList.add('in');
+          });
+        }, 30);
+      });
     }
 
     btnIt.addEventListener('click', () => setLang('it'));
@@ -340,6 +445,26 @@
     }
 
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // --- Reveal on scroll (micro-animazioni premium) ---
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) e.target.classList.add('in');
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } else {
+      // fallback: show everything
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    }
+
+    // ensure header appears quickly on load
+    setTimeout(() => {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    }, 30);
   </script>
 </body>
 </html>
