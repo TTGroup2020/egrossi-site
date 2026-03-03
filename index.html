@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Emiliano Grossi — Infrastructure & Network Engineering (IT/EN)" />
+  <title>Emiliano Grossi — Infrastructure & Network Engineering</title>
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#0f1621;
+      --text:#e8eef7;
+      --muted:#a7b3c7;
+      --line:rgba(232,238,247,.12);
+      --chip:rgba(232,238,247,.08);
+      --chip2:rgba(232,238,247,.14);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(96,165,250,.18), transparent 60%),
+                  radial-gradient(900px 500px at 90% 20%, rgba(52,211,153,.12), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    .wrap{
+      max-width: 980px;
+      padding: 28px 18px 60px;
+      margin: 0 auto;
+    }
+    header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-top: 10px;
+      margin-bottom: 22px;
+    }
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .name{
+      font-size: clamp(28px, 4vw, 42px);
+      letter-spacing: .2px;
+      font-weight: 750;
+      margin:0;
+    }
+    .role{
+      margin:0;
+      color:var(--muted);
+      font-size: 15px;
+    }
+    .lang{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      padding: 6px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(15,22,33,.55);
+      backdrop-filter: blur(6px);
+      box-shadow: var(--shadow);
+    }
+    .lang button{
+      border: 0;
+      cursor:pointer;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 650;
+      letter-spacing:.2px;
+    }
+    .lang button.active{
+      background: var(--chip2);
+      color: var(--text);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 16px;
+    }
+    @media (max-width: 880px){
+      .grid{grid-template-columns: 1fr;}
+      header{align-items:flex-start}
+    }
+
+    .card{
+      background: rgba(15,22,33,.62);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+    .card h2{
+      margin: 0 0 10px;
+      font-size: 16px;
+      letter-spacing: .3px;
+      color: var(--text);
+    }
+    .card p{margin: 0 0 10px; color: var(--muted);}
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+    .chip{
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--chip);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .list{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+    .list li{margin: 6px 0}
+    .cta{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .btnrow{display:flex; flex-wrap:wrap; gap:10px; margin-top: 6px;}
+    a.btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      text-decoration:none;
+      color: var(--text);
+      background: rgba(232,238,247,.10);
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight: 650;
+    }
+    a.btn:hover{background: rgba(232,238,247,.14)}
+    .small{font-size: 12.5px; color: var(--muted); margin-top: 8px}
+    footer{
+      margin-top: 18px;
+      color: rgba(167,179,199,.85);
+      font-size: 12.5px;
+      text-align:center;
+    }
+    .lang-pane{display:none}
+    .lang-pane.active{display:block}
+    .muted-note{font-size: 12.5px; color: rgba(167,179,199,.92)}
+    code.k{
+      background: rgba(232,238,247,.10);
+      border: 1px solid var(--line);
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12.5px;
+      color: var(--text);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <h1 class="name">Emiliano Grossi</h1>
+        <p class="role">Infrastructure &amp; Network Engineering — IT/EN</p>
+      </div>
+
+      <div class="lang" role="tablist" aria-label="Language selector">
+        <button id="btn-it" class="active" type="button" role="tab" aria-selected="true">🇮🇹 IT</button>
+        <button id="btn-en" type="button" role="tab" aria-selected="false">🇬🇧 EN</button>
+      </div>
+    </header>
+
+    <!-- IT -->
+    <section id="pane-it" class="lang-pane active" lang="it">
+      <div class="grid">
+        <div class="card">
+          <h2>Profilo</h2>
+          <p>
+            Tecnico con esperienza in contesti <strong>mission-critical</strong> e integrazione di sistemi su
+            infrastrutture in <strong>fibra ottica</strong>. Sto consolidando competenze di networking in ottica
+            enterprise, con percorso strutturato verso <strong>CCNA</strong>.
+          </p>
+          <p class="muted-note">
+            Obiettivo: crescere come <strong>Network Engineer</strong> (switching/routing/segmentation/security) con metodo,
+            rigore e visione architetturale.
+          </p>
+
+          <div class="chips" aria-label="Key topics">
+            <span class="chip">Networking enterprise</span>
+            <span class="chip">Segmentation &amp; security mindset</span>
+            <span class="chip">Fiber backbone</span>
+            <span class="chip">Mission-critical operations</span>
+          </div>
+
+          <h2 style="margin-top:16px;">Highlights</h2>
+          <ul class="list">
+            <li>Esperienza in ambienti ad alta criticità e procedure operative stringenti.</li>
+            <li>Architetture su fibra con segmentazione/isolamento dei domini (approccio “security-first”).</li>
+            <li>Distribuzione AV su IP (contesti multi-sala) e troubleshooting in scenari live.</li>
+          </ul>
+        </div>
+
+        <aside class="card cta">
+          <h2>Contatti</h2>
+          <div class="btnrow">
+            <!-- Sostituisci l'email quando vuoi -->
+            <a class="btn" href="mailto:info@egrossi.it" aria-label="Email">✉️ info@egrossi.it</a>
+            <!-- Metti qui il tuo LinkedIn quando vuoi -->
+            <a class="btn" href="#" onclick="return false;" aria-label="LinkedIn (placeholder)">in LinkedIn</a>
+          </div>
+          <p class="small">
+            Questo sito è in costruzione: contenuti e progetti verranno aggiunti progressivamente.
+          </p>
+
+          <hr style="border:0;border-top:1px solid var(--line);margin:10px 0 0;" />
+
+          <p class="small">
+            Tech note: pagina statica (<code class="k">index.html</code>), ideale per hosting sicuro e minimale.
+          </p>
+        </aside>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h2>Percorso (in sintesi)</h2>
+        <p>
+          Sto seguendo un percorso di studio costante (circa 1h/giorno) con esercizi e lab per consolidare:
+          switching, routing, subnetting, NAT, ACL, troubleshooting e best practice operative.
+        </p>
+        <p class="small">
+          Quando sarà il momento, qui compariranno mini-case study e lab “presentabili” (senza informazioni sensibili).
+        </p>
+      </div>
+    </section>
+
+    <!-- EN -->
+    <section id="pane-en" class="lang-pane" lang="en">
+      <div class="grid">
+        <div class="card">
+          <h2>Profile</h2>
+          <p>
+            Technician with hands-on experience in <strong>mission-critical</strong> environments and system integration on
+            <strong>fiber-optic</strong> infrastructures. I’m consolidating enterprise networking skills through a structured
+            <strong>CCNA</strong> path.
+          </p>
+          <p class="muted-note">
+            Goal: grow as a <strong>Network Engineer</strong> (switching/routing/segmentation/security) with discipline,
+            method and architectural thinking.
+          </p>
+
+          <div class="chips" aria-label="Key topics">
+            <span class="chip">Enterprise networking</span>
+            <span class="chip">Segmentation &amp; security mindset</span>
+            <span class="chip">Fiber backbone</span>
+            <span class="chip">Mission-critical operations</span>
+          </div>
+
+          <h2 style="margin-top:16px;">Highlights</h2>
+          <ul class="list">
+            <li>Experience in high-criticality environments with strict operational procedures.</li>
+            <li>Fiber architectures with domain isolation and “security-first” approach.</li>
+            <li>AV-over-IP in multi-room scenarios and live troubleshooting under pressure.</li>
+          </ul>
+        </div>
+
+        <aside class="card cta">
+          <h2>Contact</h2>
+          <div class="btnrow">
+            <a class="btn" href="mailto:info@egrossi.it" aria-label="Email">✉️ info@egrossi.it</a>
+            <a class="btn" href="#" onclick="return false;" aria-label="LinkedIn (placeholder)">in LinkedIn</a>
+          </div>
+          <p class="small">
+            This website is a work in progress — content and projects will be added over time.
+          </p>
+
+          <hr style="border:0;border-top:1px solid var(--line);margin:10px 0 0;" />
+
+          <p class="small">
+            Tech note: static page (<code class="k">index.html</code>), minimal and secure hosting friendly.
+          </p>
+        </aside>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <h2>Journey (short)</h2>
+        <p>
+          I follow a consistent study routine (about 1h/day) with exercises and labs to consolidate:
+          switching, routing, subnetting, NAT, ACLs, troubleshooting and operational best practices.
+        </p>
+        <p class="small">
+          When ready, I’ll publish small case studies and presentable labs (with no sensitive details).
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="y"></span> Emiliano Grossi — egrossi.it
+    </footer>
+  </div>
+
+  <script>
+    const btnIt = document.getElementById('btn-it');
+    const btnEn = document.getElementById('btn-en');
+    const paneIt = document.getElementById('pane-it');
+    const paneEn = document.getElementById('pane-en');
+
+    function setLang(lang){
+      const it = lang === 'it';
+      paneIt.classList.toggle('active', it);
+      paneEn.classList.toggle('active', !it);
+
+      btnIt.classList.toggle('active', it);
+      btnEn.classList.toggle('active', !it);
+
+      btnIt.setAttribute('aria-selected', it ? 'true' : 'false');
+      btnEn.setAttribute('aria-selected', it ? 'false' : 'true');
+
+      document.documentElement.lang = lang;
+      localStorage.setItem('egrossi_lang', lang);
+    }
+
+    btnIt.addEventListener('click', () => setLang('it'));
+    btnEn.addEventListener('click', () => setLang('en'));
+
+    // Restore saved language, otherwise try browser language, default IT
+    const saved = localStorage.getItem('egrossi_lang');
+    if (saved === 'en' || saved === 'it') {
+      setLang(saved);
+    } else {
+      const browser = (navigator.language || 'it').toLowerCase();
+      setLang(browser.startsWith('en') ? 'en' : 'it');
+    }
+
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
